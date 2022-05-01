@@ -1,0 +1,76 @@
+name: Group 10
+# Name 1, Name 2 Name 3,....
+env:
+  DISTR_REPO: "ubuntu/focal"
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Mutation testing
+    runs-on: ubuntu-latest
+    container: ubuntu:20.04
+
+    steps:
+      - name: Install software
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive TZ=Europe/Berlin apt-get install -y tzdata
+          apt-get install -y git curl cmake ninja-build libz-dev libsqlite3-dev ncurses-dev liblzma-dev
+          curl -1sLf 'https://dl.cloudsmith.io/public/mull-project/mull-stable/setup.deb.sh' | bash
+          apt-get install -y clang-12 libclang-12-dev mull-12=0.15.0
+      - name: work around permission issue
+        run: git config --global --add safe.directory /__w/mutation-lab-class-2/mutation-lab-class-2
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: For debugging
+        run: |
+          env | sort
+      - name: For debugging
+        run: |
+          cat $GITHUB_EVENT_PATH
+      - name: Prepare Mull
+        run: |
+          mkdir build.dir
+          cd build.dir
+          cmake -G Ninja \
+            -DCMAKE_PREFIX_PATH="/usr/lib/llvm-12/cmake/;/usr/lib/cmake/clang-12/" \
+            -DCMAKE_C_COMPILER=clang-12 \
+            -DCMAKE_CXX_COMPILER=clang++-12 \
+            -DCMAKE_C_FLAGS="-fpass-plugin=/usr/lib/mull-ir-frontend-12 -fexperimental-new-pass-manager -g -grecord-command-line" \
+            -DCMAKE_CXX_FLAGS="-fpass-plugin=/usr/lib/mull-ir-frontend-12 -fexperimental-new-pass-manager -g -grecord-command-line" \
+            ..          
+      - name: Run clang
+        run: |
+          cd programs/year
+          clang-12 -fexperimental-new-pass-manager -fpass-plugin=/usr/lib/mull-ir-frontend-12 -g -grecord-command-line year.c -o year_output
+          
+      - name: Run Mull Show mutations
+        run: |
+          cd programs/year
+          mull-runner-12 -ide-reporter-show-killed --reporters=IDE year_output --report-dir=/__w/mutation-lab-class-2/mutation-lab-class-2/reports --report-name=group_10
+          
+      - name: Run Mull Generate JSON
+        run: |
+          cd programs/year
+          mull-runner-12 -ide-reporter-show-killed --reporters=Elements year_output --report-dir=/__w/mutation-lab-class-2/mutation-lab-class-2/reports --report-name=group_10
+        
+      - name: show tmp files
+        run: |
+          cd /__w/mutation-lab-class-2/mutation-lab-class-2/reports
+          ls
+          
+      - name: Mutation Annotation Report
+        uses: johanholmerin/mutation-report-action@0.2.0
+        if: ${{ always() }} # Upload even if tests don't pass testing threshold
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          report-json: './reports/group_10.json' # Optional
+          
+      - name: Upload Stryker Report
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: stryker-report
+          path: ./reports/

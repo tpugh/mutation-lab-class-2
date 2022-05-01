@@ -1,0 +1,67 @@
+- name: Setup MacOS Machine
+  hosts: "{{ host | default('all') }}"
+
+  environment:
+    PATH: /usr/local/bin/:{{ ansible_env.PATH }}
+
+  vars:
+    llvm_version: 6.0.0
+    platform: macos
+
+    package_extensions:
+      - zip
+
+    mull_cxx_flags: ""
+
+    packages:
+      - cmake
+      - zlib
+      - ncurses
+      - sqlite
+      - ninja
+      - gnu-tar
+      - python3
+
+  vars_files:
+    - helpers/variables.yaml
+
+  tasks:
+    - name: Change Xcode
+      command: xcode-select --switch /Applications/Xcode_13.0.app/Contents/Developer
+      become: true
+
+    - name: Prepare Working Directory
+      include: helpers/working-directory.yaml
+
+    - name: Install Required Packages
+      homebrew:
+        name: "{{ packages }}"
+        state: present
+
+    - name: Install LLVM
+      homebrew:
+        name: "{{ llvm_packages }}"
+        state: present
+
+    - name: Install Python dependencies
+      pip:
+        name:
+          - lit==0.9.0
+          - filecheck==0.0.18
+          - cloudsmith-cli==0.26.0
+        executable: pip3
+
+    - name: Create a symbolic link for gnu-tar
+      file:
+        src: /usr/local/bin/gtar
+        dest: /usr/local/bin/tar
+        state: link
+
+    - name: Build Mull
+      include: helpers/build-mull.yaml
+
+    - name: LIT Tests
+      include: helpers/lit-tests.yaml
+
+    - name: Integration Tests
+      include: helpers/integration-tests.yaml

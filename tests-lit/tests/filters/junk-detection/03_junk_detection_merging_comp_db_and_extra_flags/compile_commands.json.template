@@ -1,0 +1,17 @@
+[
+  {
+    "arguments": [
+      "cc",
+      "-c",
+      "-g",
+      "-O0",
+      "-D",
+      "FLAG_VIA_COMP_DB=1",
+      "-o",
+      "%PWD/sample.cpp.exe",
+      "%PWD/sample.cpp"
+    ],
+    "directory": "/",
+    "file": "%PWD/sample.cpp"
+  }
+]
