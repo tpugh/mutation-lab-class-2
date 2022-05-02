@@ -1,8 +1,8 @@
 # Mutation Testing Lab
 Goals:
-Introduce Mutation testing terms and concepts.
-Provide students with exposure to GitHub and common testing automation tools.
-Provide insight on how teams are currently using mutation testing for production software today.
+- Introduce Mutation testing terms and concepts.
+- Provide students with exposure to GitHub and common testing automation tools.
+- Provide insight on how teams are currently using mutation testing for production software today.
 
 
 
