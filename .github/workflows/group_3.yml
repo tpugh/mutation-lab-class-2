@@ -3,7 +3,7 @@ name: Group 3
 env:
   DISTR_REPO: "ubuntu/focal"
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   test:
