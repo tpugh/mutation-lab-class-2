@@ -2,6 +2,7 @@ name: Group 5
 # Betty Peng, Donald Brown, Adedamola Makinde, ....
 env:
   DISTR_REPO: "ubuntu/focal"
+  
 
 on: [push]
 
@@ -41,6 +42,10 @@ jobs:
             -DCMAKE_C_FLAGS="-fpass-plugin=/usr/lib/mull-ir-frontend-12 -fexperimental-new-pass-manager -g -grecord-command-line" \
             -DCMAKE_CXX_FLAGS="-fpass-plugin=/usr/lib/mull-ir-frontend-12 -fexperimental-new-pass-manager -g -grecord-command-line" \
             ..          
+      
+      - name: Install Clang
+        uses: egor-tensin/setup-clang@v1
+      
       - name: Run clang
         run: |
           cd programs/bubble_sort
@@ -74,3 +79,5 @@ jobs:
         with:
           name: stryker-report
           path: ./reports/
+      
+
