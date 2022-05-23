@@ -1,4 +1,4 @@
-name: Group 6
+name: Group 11
 # Michael Franz
 env:
   DISTR_REPO: "ubuntu/focal"
@@ -49,12 +49,12 @@ jobs:
       - name: Run Mull Show mutations
         run: |
           cd programs/even
-          mull-runner-12 -ide-reporter-show-killed --reporters=IDE even_output --report-dir=/__w/mutation-lab-class-2/mutation-lab-class-2/reports --report-name=group_6
+          mull-runner-12 -ide-reporter-show-killed --reporters=IDE even_output --report-dir=/__w/mutation-lab-class-2/mutation-lab-class-2/reports --report-name=group_11
           
       - name: Run Mull Generate JSON
         run: |
           cd programs/even
-          mull-runner-12 -ide-reporter-show-killed --reporters=Elements even_output --report-dir=/__w/mutation-lab-class-2/mutation-lab-class-2/reports --report-name=group_6
+          mull-runner-12 -ide-reporter-show-killed --reporters=Elements even_output --report-dir=/__w/mutation-lab-class-2/mutation-lab-class-2/reports --report-name=group_11
         
       - name: show tmp files
         run: |
@@ -66,7 +66,7 @@ jobs:
         if: ${{ always() }} # Upload even if tests don't pass testing threshold
         with:
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
-          report-json: './reports/group_6.json' # Optional
+          report-json: './reports/group_11.json' # Optional
           
       - name: Upload Stryker Report
         if: ${{ always() }}
