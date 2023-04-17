@@ -1,5 +1,5 @@
 name: Group 9
-# Ayodeji falayi, Greg Okherugbe
+# name 1, name 2, ...
 env:
   DISTR_REPO: "ubuntu/focal"
 
