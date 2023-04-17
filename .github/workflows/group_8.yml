@@ -1,5 +1,5 @@
 name: Group 8
-# Brian Knauff
+# name 1, name 2, ...
 env:
   DISTR_REPO: "ubuntu/focal"
 
