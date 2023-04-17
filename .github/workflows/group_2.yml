@@ -1,5 +1,5 @@
 name: Group 2
-# Rachel Wells
+# name 1, name 2, ...
 env:
   DISTR_REPO: "ubuntu/focal"
 
