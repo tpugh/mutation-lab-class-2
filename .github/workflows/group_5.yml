@@ -1,5 +1,5 @@
 name: Group 5
-# Betty Peng, Adedamola Makinde, Donald Brown
+# name 1, name 2, ...
 env:
   DISTR_REPO: "ubuntu/focal"
 
