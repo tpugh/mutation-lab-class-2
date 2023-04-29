@@ -1,5 +1,5 @@
 name: Group 4
-# name 1, name 2, ...
+# AP Malla
 env:
   DISTR_REPO: "ubuntu/focal"
 
