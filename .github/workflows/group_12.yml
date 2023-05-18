@@ -66,7 +66,7 @@ jobs:
         if: ${{ always() }} # Upload even if tests don't pass testing threshold
         with:
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
-          report-json: './reports/group_11.json' # Optional
+          report-json: './reports/group_12.json' # Optional
           
       - name: Upload Stryker Report
         if: ${{ always() }}
