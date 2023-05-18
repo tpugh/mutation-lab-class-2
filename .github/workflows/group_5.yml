@@ -1,5 +1,5 @@
 name: Group 5
-# Erdan Wang, Rikki Shrestha, Maimouna Dembele, Bhagya Sree Vanaganti 
+# Erdan Wang, Rikki Shrestha, Maimouna Dembele 
 env:
   DISTR_REPO: "ubuntu/focal"
 
