@@ -49,12 +49,12 @@ jobs:
       - name: Run Mull Show mutations
         run: |
           cd programs/year
-          mull-runner-12 -ide-reporter-show-killed --reporters=IDE year_output --report-dir=/__w/mutation-lab-class-2/mutation-lab-class-2/reports --report-name=group_11
+          mull-runner-12 -ide-reporter-show-killed --reporters=IDE year_output --report-dir=/__w/mutation-lab-class-2/mutation-lab-class-2/reports --report-name=group_13
           
       - name: Run Mull Generate JSON
         run: |
           cd programs/year
-          mull-runner-12 -ide-reporter-show-killed --reporters=Elements year_output --report-dir=/__w/mutation-lab-class-2/mutation-lab-class-2/reports --report-name=group_11
+          mull-runner-12 -ide-reporter-show-killed --reporters=Elements year_output --report-dir=/__w/mutation-lab-class-2/mutation-lab-class-2/reports --report-name=group_13
         
       - name: show tmp files
         run: |
